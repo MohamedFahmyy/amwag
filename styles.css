@@ -1,0 +1,1182 @@
+:root {
+  --ocean-abyss: #020b18;
+  --ocean-deep: #041830;
+  --ocean-mid: #082d56;
+  --ocean-surface: #0d4b85;
+  --aqua-glow: #00e5ff;
+  --aqua-soft: #4dd0e1;
+  --turquoise: #1de9b6;
+  --coral-gold: #ffb300;
+  --coral-warm: #ff6d40;
+  --pearl-white: #f0f9ff;
+  --pearl-muted: #9ad1ec;
+  --glass-bg: rgba(7, 34, 66, 0.58);
+  --glass-bg-hover: rgba(11, 49, 92, 0.78);
+  --glass-border: rgba(0, 229, 255, 0.25);
+  --glass-border-bright: rgba(0, 229, 255, 0.65);
+  --radius-md: 18px;
+  --radius-lg: 28px;
+  --radius-full: 9999px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: 'Cairo', 'Tajawal', system-ui, -apple-system, sans-serif;
+  background-color: var(--ocean-abyss);
+  color: var(--pearl-white);
+}
+
+body {
+  overflow-x: hidden;
+  line-height: 1.65;
+  min-height: 100vh;
+  position: relative;
+  background: linear-gradient(
+    180deg,
+    #0a3d6e 0%,
+    #06274b 28%,
+    #041933 65%,
+    #020c1b 100%
+  );
+}
+
+/* ==========================================
+   IMMERSIVE UNDERWATER OCEAN BACKGROUND
+   ========================================== */
+#oceanCanvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Sun Rays / God Rays from Water Surface */
+.sun-rays {
+  position: fixed;
+  top: -15%;
+  left: 0;
+  width: 100%;
+  height: 85vh;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(
+      108deg,
+      rgba(0, 229, 255, 0.0) 0%,
+      rgba(0, 229, 255, 0.07) 4%,
+      rgba(255, 255, 255, 0.04) 6%,
+      rgba(0, 229, 255, 0.0) 11%
+    );
+  filter: blur(18px);
+  transform-origin: top center;
+  animation: swayRays 12s ease-in-out infinite alternate;
+}
+
+@keyframes swayRays {
+  0% {
+    transform: rotate(-3deg) scaleX(1.05);
+    opacity: 0.65;
+  }
+  100% {
+    transform: rotate(3deg) scaleX(1.15);
+    opacity: 0.95;
+  }
+}
+
+/* Ambient Bioluminescent Glow Orbs */
+.ocean-ambient-glow {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 15% 25%, rgba(0, 229, 255, 0.14) 0%, transparent 40%),
+    radial-gradient(circle at 85% 60%, rgba(29, 233, 182, 0.1) 0%, transparent 45%),
+    radial-gradient(circle at 50% 90%, rgba(255, 179, 0, 0.07) 0%, transparent 40%);
+}
+
+/* Content Wrapper above Canvas */
+.page-content {
+  position: relative;
+  z-index: 2;
+}
+
+.container {
+  width: 100%;
+  max-width: 1260px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+/* ==========================================
+   FLOATING SEA-GLASS NAVBAR
+   ========================================== */
+.navbar {
+  position: sticky;
+  top: 12px;
+  z-index: 100;
+  padding: 0 1rem;
+  margin-bottom: 1rem;
+}
+
+.nav-glass {
+  max-width: 1240px;
+  margin: 0 auto;
+  background: rgba(4, 24, 48, 0.72);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-full);
+  padding: 0.65rem 1.35rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45), 0 0 25px rgba(0, 229, 255, 0.12);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  text-decoration: none;
+  color: #fff;
+}
+
+.brand-logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #0d4b85 0%, #041830 100%);
+  border: 2px solid var(--aqua-glow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 18px rgba(0, 229, 255, 0.55);
+  flex-shrink: 0;
+  animation: floatSlow 4s ease-in-out infinite;
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.brand-title {
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: #fff;
+  text-shadow: 0 0 12px rgba(0, 229, 255, 0.45);
+  display: block;
+  line-height: 1.15;
+}
+
+.brand-subtitle {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--aqua-glow);
+  letter-spacing: 0.1em;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--pearl-white);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-full);
+}
+
+.nav-links a:hover {
+  color: var(--aqua-glow);
+  background: rgba(0, 229, 255, 0.1);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.hotline-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, var(--coral-gold), var(--coral-warm));
+  color: #fff;
+  text-decoration: none;
+  padding: 0.5rem 1.15rem;
+  border-radius: var(--radius-full);
+  font-weight: 900;
+  font-size: 1rem;
+  box-shadow: 0 0 20px rgba(255, 179, 0, 0.45);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hotline-pill:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 28px rgba(255, 179, 0, 0.75);
+}
+
+.cart-btn {
+  background: rgba(0, 229, 255, 0.15);
+  border: 1px solid var(--glass-border-bright);
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: inherit;
+  font-weight: 800;
+  font-size: 0.92rem;
+  transition: all 0.2s ease;
+}
+
+.cart-btn:hover {
+  background: rgba(0, 229, 255, 0.3);
+  box-shadow: 0 0 18px rgba(0, 229, 255, 0.4);
+}
+
+.cart-badge {
+  background: var(--coral-gold);
+  color: var(--ocean-abyss);
+  font-size: 0.78rem;
+  font-weight: 900;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 6px;
+}
+
+/* ==========================================
+   UNDERWATER HERO SECTION
+   ========================================== */
+.hero {
+  padding: 3.5rem 0 4rem;
+  position: relative;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.ocean-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(0, 229, 255, 0.14);
+  border: 1px solid var(--glass-border-bright);
+  color: var(--aqua-glow);
+  padding: 0.4rem 1.15rem;
+  border-radius: var(--radius-full);
+  font-size: 0.92rem;
+  font-weight: 800;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
+}
+
+.hero h1 {
+  font-size: clamp(2.3rem, 4.6vw, 3.85rem);
+  font-weight: 900;
+  line-height: 1.18;
+  margin-bottom: 1.1rem;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+}
+
+.hero h1 .wave-gradient {
+  background: linear-gradient(90deg, var(--aqua-glow), var(--turquoise), var(--coral-gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-desc {
+  font-size: 1.14rem;
+  color: var(--pearl-muted);
+  max-width: 600px;
+  margin-bottom: 2rem;
+}
+
+.hero-cta-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2.25rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.9rem 1.75rem;
+  border-radius: var(--radius-full);
+  font-weight: 800;
+  font-size: 1rem;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+  transition: all 0.25s ease;
+}
+
+.btn-aqua {
+  background: linear-gradient(135deg, #00e5ff, #0083b0);
+  color: var(--ocean-abyss);
+  box-shadow: 0 8px 25px rgba(0, 229, 255, 0.4);
+}
+
+.btn-aqua:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 12px 32px rgba(0, 229, 255, 0.65);
+}
+
+.btn-coral {
+  background: linear-gradient(135deg, var(--coral-gold), var(--coral-warm));
+  color: #fff;
+  box-shadow: 0 8px 25px rgba(255, 109, 64, 0.45);
+}
+
+.btn-coral:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 12px 32px rgba(255, 179, 0, 0.65);
+}
+
+.btn-glass {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  border: 1.5px solid var(--glass-border-bright);
+}
+
+.btn-glass:hover {
+  background: rgba(0, 229, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Pearl Portal Showcase in Hero */
+.ocean-portal-card {
+  background: radial-gradient(circle at top right, rgba(0, 229, 255, 0.22), rgba(4, 24, 48, 0.82));
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 2px solid var(--glass-border-bright);
+  border-radius: var(--radius-lg);
+  padding: 1.65rem;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55), 0 0 40px rgba(0, 229, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.ocean-portal-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(0, 229, 255, 0.12) 0%, transparent 60%);
+  animation: rotateGlow 15s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes rotateGlow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.portal-header {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.2rem;
+}
+
+.portal-tag {
+  background: linear-gradient(135deg, var(--coral-gold), var(--coral-warm));
+  color: #fff;
+  padding: 0.25rem 0.9rem;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.treasure-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.95rem;
+}
+
+.treasure-item {
+  background: rgba(3, 19, 39, 0.68);
+  border: 1px solid rgba(0, 229, 255, 0.28);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.treasure-item:hover {
+  transform: translateY(-5px);
+  border-color: var(--coral-gold);
+  box-shadow: 0 10px 25px rgba(0, 229, 255, 0.25);
+}
+
+.treasure-item .emoji {
+  font-size: 2rem;
+  margin-bottom: 0.35rem;
+  display: inline-block;
+  filter: drop-shadow(0 4px 8px rgba(0, 229, 255, 0.35));
+}
+
+.treasure-item h4 {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 0.2rem;
+}
+
+.treasure-item p {
+  font-size: 0.78rem;
+  color: var(--pearl-muted);
+  margin-bottom: 0.5rem;
+}
+
+.treasure-item .price-pill {
+  display: inline-block;
+  background: rgba(0, 229, 255, 0.2);
+  border: 1px solid var(--aqua-glow);
+  color: var(--aqua-glow);
+  font-weight: 900;
+  font-size: 0.82rem;
+  padding: 0.15rem 0.65rem;
+  border-radius: var(--radius-full);
+}
+
+.portal-hotline {
+  position: relative;
+  z-index: 1;
+  margin-top: 1.15rem;
+  background: linear-gradient(90deg, rgba(0, 229, 255, 0.22), rgba(255, 179, 0, 0.22));
+  border: 1px solid rgba(255, 179, 0, 0.5);
+  border-radius: var(--radius-md);
+  padding: 0.9rem 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.portal-hotline .big-num {
+  font-size: 1.85rem;
+  font-weight: 900;
+  color: var(--coral-gold);
+  text-decoration: none;
+  text-shadow: 0 0 15px rgba(255, 179, 0, 0.6);
+}
+
+/* ==========================================
+   CHEF'S WAVE SPECIALS CAROUSEL (أطباق الموجة الذهبية)
+   ========================================== */
+.specials-section {
+  padding: 1.5rem 0 3rem;
+}
+
+.specials-track {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.2rem;
+}
+
+.special-spotlight-card {
+  background: linear-gradient(155deg, rgba(13, 75, 133, 0.65), rgba(4, 24, 48, 0.85));
+  backdrop-filter: blur(14px);
+  border: 1.5px solid rgba(0, 229, 255, 0.35);
+  border-radius: var(--radius-lg);
+  padding: 1.4rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.special-spotlight-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--coral-gold);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(255, 179, 0, 0.3);
+}
+
+.special-ribbon {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background: linear-gradient(135deg, var(--coral-gold), var(--coral-warm));
+  color: #fff;
+  font-size: 0.74rem;
+  font-weight: 900;
+  padding: 0.2rem 0.75rem;
+  border-radius: var(--radius-full);
+}
+
+.special-icon-ring {
+  width: 64px;
+  height: 64px;
+  border-radius: 20px;
+  background: rgba(0, 229, 255, 0.14);
+  border: 1px solid var(--glass-border-bright);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.1rem;
+  margin-bottom: 1rem;
+  box-shadow: inset 0 0 15px rgba(0, 229, 255, 0.25);
+}
+
+/* ==========================================
+   MAGNETIC INTERACTIVE MENU SECTION
+   ========================================== */
+.menu-section {
+  padding: 2rem 0 5rem;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 2.25rem;
+}
+
+.section-subtitle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(0, 229, 255, 0.15);
+  border: 1px solid var(--glass-border-bright);
+  color: var(--aqua-glow);
+  font-weight: 800;
+  font-size: 0.88rem;
+  padding: 0.35rem 1.1rem;
+  border-radius: var(--radius-full);
+  margin-bottom: 0.65rem;
+}
+
+.section-title {
+  font-size: clamp(2rem, 3.6vw, 2.9rem);
+  font-weight: 900;
+  color: #fff;
+  text-shadow: 0 0 22px rgba(0, 229, 255, 0.35);
+  margin-bottom: 0.5rem;
+}
+
+.section-note {
+  color: var(--pearl-muted);
+  font-size: 1rem;
+}
+
+/* Floating Glass Search & Category Bar */
+.menu-controls {
+  position: sticky;
+  top: 86px;
+  z-index: 85;
+  background: rgba(3, 19, 39, 0.82);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 1.1rem 1.25rem;
+  margin-bottom: 2.5rem;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5);
+}
+
+.search-bar-wrap {
+  display: flex;
+  gap: 0.85rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.search-input-container {
+  flex: 1;
+  min-width: 240px;
+  position: relative;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.85rem 2.9rem 0.85rem 1.2rem;
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--glass-border-bright);
+  background: rgba(7, 34, 66, 0.75);
+  font-family: inherit;
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: #fff;
+  transition: all 0.25s ease;
+}
+
+.search-input::placeholder {
+  color: var(--pearl-muted);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--aqua-glow);
+  box-shadow: 0 0 22px rgba(0, 229, 255, 0.35);
+  background: rgba(10, 48, 92, 0.9);
+}
+
+.search-icon {
+  position: absolute;
+  right: 1.15rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 1.1rem;
+}
+
+/* Glowing Shell Category Pills */
+.category-tabs {
+  display: flex;
+  gap: 0.65rem;
+  overflow-x: auto;
+  padding-bottom: 0.35rem;
+  scrollbar-width: thin;
+}
+
+.category-tabs::-webkit-scrollbar {
+  height: 5px;
+}
+
+.category-tabs::-webkit-scrollbar-thumb {
+  background: var(--aqua-glow);
+  border-radius: 6px;
+}
+
+.cat-tab {
+  background: rgba(10, 44, 84, 0.65);
+  border: 1.5px solid rgba(0, 229, 255, 0.25);
+  color: var(--pearl-white);
+  padding: 0.6rem 1.25rem;
+  border-radius: var(--radius-full);
+  font-family: inherit;
+  font-weight: 800;
+  font-size: 0.94rem;
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.25s ease;
+}
+
+.cat-tab:hover {
+  border-color: var(--aqua-glow);
+  transform: translateY(-2px);
+  background: rgba(0, 229, 255, 0.18);
+}
+
+.cat-tab.active {
+  background: linear-gradient(135deg, var(--aqua-glow), #0083b0);
+  color: var(--ocean-abyss);
+  border-color: transparent;
+  box-shadow: 0 0 22px rgba(0, 229, 255, 0.55);
+  transform: translateY(-2px);
+}
+
+/* Category Section Header Wave Banner */
+.menu-category-block {
+  margin-bottom: 3.5rem;
+  animation: fadeUp 0.45s ease both;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.category-banner {
+  background: linear-gradient(90deg, rgba(0, 229, 255, 0.22) 0%, rgba(7, 34, 66, 0.85) 100%);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border-bright);
+  border-right: 6px solid var(--coral-gold);
+  padding: 1.2rem 1.6rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.category-banner-title {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #fff;
+  text-shadow: 0 2px 10px rgba(0, 229, 255, 0.3);
+}
+
+.category-banner-sub {
+  font-size: 0.92rem;
+  color: var(--coral-gold);
+  font-weight: 700;
+}
+
+/* Eye-Catching Sea-Glass Menu Cards */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.35rem;
+}
+
+.menu-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1.5px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  padding: 1.35rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.28s ease, box-shadow 0.28s ease, background 0.28s ease;
+}
+
+.menu-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 110px;
+  height: 110px;
+  background: radial-gradient(circle, rgba(0, 229, 255, 0.14) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.menu-card:hover {
+  transform: translateY(-6px);
+  background: var(--glass-bg-hover);
+  border-color: var(--aqua-glow);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.55), 0 0 24px rgba(0, 229, 255, 0.28);
+}
+
+.menu-card-top {
+  margin-bottom: 1.1rem;
+  display: flex;
+  gap: 0.95rem;
+  align-items: flex-start;
+}
+
+.dish-avatar {
+  width: 54px;
+  height: 54px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(0, 229, 255, 0.2), rgba(4, 24, 48, 0.9));
+  border: 1px solid rgba(0, 229, 255, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  flex-shrink: 0;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.menu-card:hover .dish-avatar {
+  transform: scale(1.1) rotate(-6deg);
+}
+
+.menu-card-info {
+  flex: 1;
+}
+
+.menu-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.3rem;
+}
+
+.menu-item-title {
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: #fff;
+}
+
+.menu-item-badge {
+  background: linear-gradient(135deg, var(--coral-gold), var(--coral-warm));
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 900;
+  padding: 0.18rem 0.65rem;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+  box-shadow: 0 2px 10px rgba(255, 109, 64, 0.4);
+}
+
+.menu-item-desc {
+  font-size: 0.88rem;
+  color: var(--pearl-muted);
+}
+
+/* Interactive Variant Chips inside Menu Card */
+.menu-variants {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 0.35rem;
+}
+
+.variant-chip {
+  flex: 1;
+  min-width: 86px;
+  background: rgba(3, 19, 39, 0.72);
+  border: 1px solid rgba(0, 229, 255, 0.32);
+  border-radius: 12px;
+  padding: 0.5rem 0.65rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.variant-chip:hover {
+  background: linear-gradient(135deg, rgba(0, 229, 255, 0.28), rgba(29, 233, 182, 0.22));
+  border-color: var(--aqua-glow);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 229, 255, 0.25);
+}
+
+.variant-label {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--pearl-muted);
+}
+
+.variant-price {
+  font-size: 1.04rem;
+  font-weight: 900;
+  color: var(--coral-gold);
+}
+
+.variant-price small {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--aqua-glow);
+}
+
+.single-price-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.8rem;
+  border-top: 1px dashed rgba(0, 229, 255, 0.22);
+}
+
+.price-tag {
+  font-size: 1.38rem;
+  font-weight: 900;
+  color: var(--coral-gold);
+  text-shadow: 0 0 12px rgba(255, 179, 0, 0.3);
+}
+
+.price-tag span {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--pearl-muted);
+}
+
+.add-btn {
+  background: linear-gradient(135deg, rgba(0, 229, 255, 0.22), rgba(0, 131, 176, 0.45));
+  color: #fff;
+  border: 1px solid var(--aqua-glow);
+  border-radius: var(--radius-full);
+  padding: 0.48rem 1.1rem;
+  font-family: inherit;
+  font-size: 0.86rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.2s ease;
+}
+
+.add-btn:hover {
+  background: var(--aqua-glow);
+  color: var(--ocean-abyss);
+  box-shadow: 0 0 18px rgba(0, 229, 255, 0.6);
+}
+
+/* ==========================================
+   ORIGINAL MENU PDF & LOCATION SECTIONS
+   ========================================== */
+.glass-section-box {
+  background: rgba(4, 24, 48, 0.68);
+  backdrop-filter: blur(18px);
+  border: 1.5px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+  margin-bottom: 3.5rem;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+.location-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 2rem;
+  align-items: stretch;
+}
+
+.location-details-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin: 1.5rem 0;
+}
+
+.location-details-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.95rem;
+  background: rgba(7, 34, 66, 0.55);
+  border: 1px solid rgba(0, 229, 255, 0.2);
+  padding: 1rem;
+  border-radius: var(--radius-md);
+}
+
+.loc-badge-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(0, 229, 255, 0.18);
+  border: 1px solid var(--aqua-glow);
+  color: var(--aqua-glow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+
+.map-frame-wrapper {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 2px solid var(--glass-border-bright);
+  box-shadow: 0 0 30px rgba(0, 229, 255, 0.2);
+  min-height: 380px;
+}
+
+.map-frame-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  min-height: 380px;
+  border: 0;
+}
+
+/* ==========================================
+   ORDER DRAWER (UNDERWATER GLASS)
+   ========================================== */
+.drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 11, 24, 0.75);
+  backdrop-filter: blur(6px);
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.drawer-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.order-drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  max-width: 430px;
+  background: rgba(4, 24, 48, 0.95);
+  backdrop-filter: blur(22px);
+  border-right: 2px solid var(--glass-border-bright);
+  z-index: 210;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(-100%);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.order-drawer.open {
+  transform: translateX(0);
+}
+
+.drawer-header {
+  background: rgba(7, 34, 66, 0.9);
+  border-bottom: 1px solid var(--glass-border);
+  color: #fff;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.drawer-close {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border: 1px solid var(--glass-border);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+.drawer-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.25rem 1.5rem;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem;
+  margin-bottom: 0.65rem;
+  background: rgba(7, 34, 66, 0.6);
+  border: 1px solid var(--glass-border);
+  border-radius: 14px;
+  gap: 0.75rem;
+}
+
+.cart-item-info h4 {
+  font-size: 0.96rem;
+  color: #fff;
+}
+
+.cart-item-info span {
+  font-size: 0.84rem;
+  color: var(--pearl-muted);
+}
+
+.cart-qty-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.qty-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: 1px solid var(--aqua-glow);
+  background: rgba(0, 229, 255, 0.15);
+  color: #fff;
+  cursor: pointer;
+  font-weight: 900;
+}
+
+.drawer-footer {
+  padding: 1.25rem 1.5rem;
+  background: rgba(2, 11, 24, 0.9);
+  border-top: 1px solid var(--glass-border);
+}
+
+.drawer-total-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: var(--coral-gold);
+  margin-bottom: 0.5rem;
+}
+
+/* Footer */
+.footer {
+  background: rgba(2, 11, 24, 0.88);
+  backdrop-filter: blur(12px);
+  color: var(--pearl-muted);
+  padding: 3rem 0 2rem;
+  border-top: 1px solid var(--glass-border);
+}
+
+.footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(0, 229, 255, 0.12);
+}
+
+.footer-bottom {
+  padding-top: 1.5rem;
+  text-align: center;
+  font-size: 0.88rem;
+}
+
+@media (max-width: 920px) {
+  .hero-grid,
+  .location-grid {
+    grid-template-columns: 1fr;
+  }
+  .nav-links {
+    display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .treasure-grid {
+    grid-template-columns: 1fr;
+  }
+  .glass-section-box {
+    padding: 1.35rem;
+  }
+}
